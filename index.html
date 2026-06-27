@@ -6,13 +6,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#6ee7b7" />
-  <title>Random Games Kids v11</title>
+  <title>Random Games Kids v14</title>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <link rel="manifest" href="site.webmanifest?v=11" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=11" />
-  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=11" />
+  <link rel="manifest" href="site.webmanifest?v=14" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=14" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=14" />
   <style>
     :root{
       --bg:#fff7ed;
@@ -119,6 +119,119 @@
     .word-layout{display:grid;gap:14px}.word-play-card{background:#fff;border:2px solid rgba(148,163,184,.16);border-radius:22px;padding:16px;box-shadow:var(--soft-shadow)}.word-big{font-size:clamp(28px,8vw,48px);font-weight:950;letter-spacing:.04em;text-align:center;margin:12px 0;color:#334155}.word-sentence{font-size:clamp(20px,5vw,30px);font-weight:900;text-align:center;line-height:1.25;margin:12px 0;color:#475569}.word-blanks{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0 8px}.letter-slot{width:clamp(36px,10vw,54px);height:clamp(44px,12vw,62px);border-radius:14px;border:2px solid rgba(96,165,250,.48);background:#eff6ff;display:grid;place-items:center;font-size:clamp(23px,7vw,34px);font-weight:950;text-transform:uppercase;color:#1e3a8a;box-shadow:inset 0 -2px 0 rgba(96,165,250,.14)}.letter-slot.locked{background:#f8fafc;color:#64748b;border-color:rgba(148,163,184,.30)}.letter-slot.wrong{background:#fff1f2;border-color:#ef4444}.letter-slot.correct{background:#dcfce7;border-color:#22c55e}.letter-keyboard{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-top:14px}.letter-btn{min-height:46px;border:0;border-radius:15px;background:linear-gradient(135deg,#e0f2fe,#fef3c7);color:#334155;font-weight:950;font-size:18px;box-shadow:0 4px 0 rgba(51,65,85,.14);touch-action:manipulation}.letter-btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(51,65,85,.18)}.letter-btn.action{font-size:14px;background:linear-gradient(135deg,#fce7f3,#ede9fe)}.word-skill-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}@media(min-width:720px){.word-skill-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:520px){.letter-keyboard{grid-template-columns:repeat(6,1fr)}.letter-btn{min-height:44px;font-size:17px}}
 
     @media(max-width:380px){:root{--tile:32px}.cell,.answer-input{font-size:17px}.actions{grid-template-columns:1fr}.subtitle{display:none}}
+
+
+    /* v12 mobile fit/scroll fixes */
+    html, body {
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    body { overscroll-behavior-y: auto; }
+    .app { min-height: 100dvh; }
+    .screen.active { min-height: 0; overflow: visible; }
+    .game-card { overflow: visible; }
+    .board-wrap {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      touch-action: pan-x pan-y;
+      padding: 12px 4px 20px;
+      scroll-padding: 18px;
+    }
+    .board {
+      width: max-content;
+      min-width: max-content;
+      margin: 0 auto;
+      touch-action: pan-x pan-y;
+    }
+    .board-wrap::-webkit-scrollbar { height: 8px; }
+    .board-wrap::-webkit-scrollbar-thumb { background: rgba(100,116,139,.22); border-radius: 999px; }
+    .cell, .answer-input { touch-action: manipulation; }
+    .app.numberpad-open { padding-bottom: calc(34px + 230px + env(safe-area-inset-bottom)); }
+    @media(max-width:520px){
+      .app { padding-left: 8px; padding-right: 8px; }
+      .card { max-width: 100%; }
+      .board-wrap { max-height: 52dvh; }
+      .app.numberpad-open { padding-bottom: calc(34px + 255px + env(safe-area-inset-bottom)); }
+      .game-tabs { position: sticky; }
+      .number-pad { max-height: 42dvh; overflow: auto; }
+    }
+    .draw-layout { display: grid; gap: 14px; grid-template-columns: 1fr; }
+    .draw-tools { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; align-items: end; }
+    .draw-canvas-wrap { width: 100%; overflow: auto; -webkit-overflow-scrolling: touch; border-radius: 22px; border: 2px solid rgba(148,163,184,.18); background: #fffdf7; }
+    .draw-canvas { width: 100%; min-width: 300px; height: min(58dvh, 520px); min-height: 360px; display: block; touch-action: none; background: #fffdf7; }
+    .drawing-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-top: 10px; }
+    .drawing-thumb img { width: 100%; border-radius: 14px; border: 2px solid rgba(148,163,184,.18); background: #fff; }
+    @media(max-width:520px){
+      .draw-tools { grid-template-columns: 1fr 1fr; }
+      .draw-tools .btn { width: 100%; padding: 0 8px; }
+      .draw-canvas { height: 52dvh; min-height: 340px; }
+      .letter-keyboard { padding-bottom: 18px; }
+    }
+
+
+    /* v14: mobile scroll + compact keypad fixes */
+    html, body { overflow-x: hidden; overflow-y: auto; height: auto; }
+    body { overscroll-behavior-y: auto; touch-action: pan-y; }
+    .app { min-height: 100dvh; padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+    .hero { position: static; margin-bottom: 6px; padding: 4px 0; }
+    .game-tabs { position: sticky; top: env(safe-area-inset-top); z-index: 8; margin-bottom: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; touch-action: pan-x; }
+    .tab-btn { min-height: 44px; }
+    .screen.active { overflow: visible; min-height: 0; }
+    .card, .game-card, .word-play-card { overflow: visible; }
+    .board-wrap {
+      display:block;
+      overflow:auto;
+      max-height: min(58dvh, 520px);
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x pan-y;
+      overscroll-behavior: contain;
+      padding: 12px 6px 24px;
+      border-radius: 20px;
+      background: rgba(226,232,240,.55);
+    }
+    .board { margin: 0 auto; }
+    .number-pad { max-height: 24dvh; overflow: auto; padding-top: 7px; padding-bottom: calc(7px + env(safe-area-inset-bottom)); }
+    .number-pad-inner { grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 5px; }
+    .num-btn { min-height: 42px; border-radius: 13px; font-size: 18px; padding: 0 2px; }
+    .num-btn.action { grid-column: span 2; font-size: 12px; }
+    .num-help { font-size: 11px; line-height: 1.15; margin-top: 0; }
+    .app.numberpad-open { padding-bottom: calc(150px + env(safe-area-inset-bottom)); }
+    .app.numberpad-open .board-wrap { max-height: min(42dvh, 420px); }
+    #otherScreen, #drawScreen, #profileScreen, #evaluationScreen { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+    .word-layout { padding-bottom: 22px; }
+    .letter-keyboard { touch-action: manipulation; }
+    .draw-canvas-wrap { max-height: 64dvh; overflow: auto; -webkit-overflow-scrolling: touch; }
+    @media(max-width:520px){
+      :root { --tile: clamp(30px, 9.1vw, 40px); }
+      .app { padding-left: 8px; padding-right: 8px; }
+      .hero h1 { font-size: clamp(26px, 8vw, 34px); }
+      .logo { width: 42px; height: 42px; }
+      .subtitle { display: none; }
+      .game-tabs { gap: 5px; padding: 5px; border-radius: 22px; }
+      .tab-btn { min-height: 42px; font-size: 14px; border-radius: 17px; }
+      .top-bar, .level-row { margin-bottom: 8px; }
+      .stats { display: none; }
+      .message { min-height: 22px; margin: 7px 0; }
+      .board-wrap { max-height: 50dvh; padding-bottom: 28px; }
+      .app.numberpad-open .board-wrap { max-height: 38dvh; }
+      .actions { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .actions .btn { min-height: 44px; }
+      .number-pad { max-height: 22dvh; }
+      .number-pad-inner { grid-template-columns: repeat(10, minmax(0, 1fr)) !important; gap: 4px; }
+      .num-btn { min-height: 40px; border-radius: 12px; font-size: 17px; }
+      .num-btn.action { grid-column: span 2; font-size: 11px; }
+      .num-help { display: none; }
+      .app.numberpad-open { padding-bottom: calc(118px + env(safe-area-inset-bottom)); }
+      .letter-keyboard { grid-template-columns: repeat(7, 1fr); gap: 5px; padding-bottom: 28px; }
+      .letter-btn { min-height: 40px; border-radius: 12px; font-size: 16px; }
+      .draw-canvas { height: 50dvh; min-height: 300px; }
+    }
+
 </style>
 </head>
 <body>
@@ -133,7 +246,7 @@
       <button id="tabOther" data-tab="words" class="tab-btn" type="button" onclick="openWordsTab()">🔤 Words</button>
       <button id="tabDraw" data-tab="draw" class="tab-btn" type="button" onclick="stopTimer(); showScreen('draw')">🎨 Draw</button>
     </nav>
-    <div class="version-pill">v11 · if this still shows an older version, Safari/GitHub Pages is cached</div>
+    <div class="version-pill">v14 · scroll + compact keypad fix · use ?v=14 if Safari is cached</div>
 
     <section id="profileScreen" class="screen active">
       <div class="profile-layout">
@@ -339,13 +452,32 @@ function makeEquation({fixedLeft, fixedAnswer, rules, rng, preferredOp=null, eqI
  if(op==='+'){const left=fixedLeft!==undefined?Number(fixedLeft):randomInt(rng,0,Math.max(0,rules.maxAdditionTotal-ans));const result=left+ans;if(left<=rules.maxNumber&&ans<=rules.maxAnswer&&result<=rules.maxAdditionTotal)return{parts:[left,'+',ans,'=',result],left,op,answer:ans,result};continue}
  if(op==='-'){let left,result;if(fixedLeft!==undefined){left=Number(fixedLeft); if(ans>left)continue; result=left-ans}else{result=randomInt(rng,0,Math.max(0,rules.maxNumber-ans)); left=ans+result} if(left<=rules.maxNumber&&result>=0&&result<=rules.maxNumber)return{parts:[left,'-',ans,'=',result],left,op,answer:ans,result}}
  }throw new Error('equation fail')}
-function renderPuzzle(){els.board.innerHTML='';activeInput=null;els.board.style.gridTemplateColumns=`repeat(${puzzle.cols}, var(--tile))`;els.board.style.gridTemplateRows=`repeat(${puzzle.rows}, var(--tile))`;for(let row=0;row<puzzle.rows;row++){for(let col=0;col<puzzle.cols;col++){const cell=puzzle.cells.get(`${row},${col}`);if(!cell){const empty=document.createElement('div');empty.className='empty-cell';empty.setAttribute('aria-hidden','true');els.board.appendChild(empty);continue}const tile=document.createElement('div');tile.className='cell '+(cell.type==='blank'?'blank':cell.type==='operator'?'operator':'number');tile.dataset.row=row;tile.dataset.col=col;if(cell.type==='blank'){const input=document.createElement('input');input.className='answer-input';input.type='text';input.inputMode='none';input.pattern='[0-9]*';input.readOnly=true;input.maxLength=Math.max(1,String(cell.answer).length);input.dataset.answerId=cell.answerId;input.dataset.answer=String(cell.answer);input.setAttribute('aria-label',`Missing number ${cell.answerId}`);input.addEventListener('focus',()=>selectAnswerInput(input));input.addEventListener('click',e=>{e.preventDefault();selectAnswerInput(input)});input.addEventListener('touchstart',e=>{e.preventDefault();selectAnswerInput(input)},{passive:false});input.addEventListener('keydown',onAnswerKeydown);tile.addEventListener('click',()=>selectAnswerInput(input));tile.appendChild(input)}else tile.textContent=cell.value;els.board.appendChild(tile)}}setTimeout(()=>selectAnswerInput(document.querySelector('.answer-input')),50)}
-function selectAnswerInput(input){if(!input||levelCompleteLocked)return;document.querySelectorAll('.cell.blank.selected').forEach(t=>t.classList.remove('selected'));activeInput=input;input.closest('.blank')?.classList.add('selected');try{input.focus({preventScroll:true})}catch(e){try{input.focus()}catch(_){}}}
+function renderPuzzle(){els.board.innerHTML='';activeInput=null;els.board.style.gridTemplateColumns=`repeat(${puzzle.cols}, var(--tile))`;els.board.style.gridTemplateRows=`repeat(${puzzle.rows}, var(--tile))`;for(let row=0;row<puzzle.rows;row++){for(let col=0;col<puzzle.cols;col++){const cell=puzzle.cells.get(`${row},${col}`);if(!cell){const empty=document.createElement('div');empty.className='empty-cell';empty.setAttribute('aria-hidden','true');els.board.appendChild(empty);continue}const tile=document.createElement('div');tile.className='cell '+(cell.type==='blank'?'blank':cell.type==='operator'?'operator':'number');tile.dataset.row=row;tile.dataset.col=col;if(cell.type==='blank'){const input=document.createElement('input');input.className='answer-input';input.type='text';input.inputMode='none';input.pattern='[0-9]*';input.readOnly=true;input.maxLength=Math.max(1,String(cell.answer).length);input.dataset.answerId=cell.answerId;input.dataset.answer=String(cell.answer);input.setAttribute('aria-label',`Missing number ${cell.answerId}`);input.addEventListener('focus',()=>selectAnswerInput(input));input.addEventListener('click',e=>{e.preventDefault();selectAnswerInput(input)});input.addEventListener('touchstart',e=>{e.preventDefault();selectAnswerInput(input)},{passive:false});input.addEventListener('keydown',onAnswerKeydown);tile.addEventListener('click',()=>selectAnswerInput(input));tile.appendChild(input)}else tile.textContent=cell.value;els.board.appendChild(tile)}}setTimeout(()=>{fitBoardToScreen();selectAnswerInput(document.querySelector('.answer-input'))},50)}
+function selectAnswerInput(input){if(!input||levelCompleteLocked)return;document.querySelectorAll('.cell.blank.selected').forEach(t=>t.classList.remove('selected'));activeInput=input;const tile=input.closest('.blank');tile?.classList.add('selected');try{input.focus({preventScroll:true})}catch(e){try{input.focus()}catch(_){}}setTimeout(()=>{try{tile?.scrollIntoView({block:'center',inline:'center',behavior:'smooth'});}catch(e){}},20)}
 function getNextInput(from=activeInput){const inputs=Array.from(document.querySelectorAll('.answer-input'));if(!inputs.length)return null;const idx=Math.max(0,inputs.indexOf(from));return inputs.slice(idx+1).find(i=>!i.value)||inputs.find(i=>!i.value)||inputs[(idx+1)%inputs.length]||inputs[0]}
 function applyDigitToActive(digit){let input=activeInput;if(!input||!document.body.contains(input))input=document.querySelector('.answer-input:not([value])')||document.querySelector('.answer-input');if(!input)return;selectAnswerInput(input);const max=Number(input.maxLength)||2;if(input.value.length>=max)input.value='';input.value=(input.value+String(digit)).replace(/[^0-9]/g,'').slice(0,max);afterAnswerEdited(input);if(input.value.length>=max){const next=getNextInput(input);if(next&&next!==input)setTimeout(()=>selectAnswerInput(next),90)}}
 function backspaceActive(){const input=activeInput||document.querySelector('.answer-input');if(!input)return;selectAnswerInput(input);input.value=input.value.slice(0,-1);afterAnswerEdited(input)}
 function clearActiveInput(){const input=activeInput||document.querySelector('.answer-input');if(!input)return;selectAnswerInput(input);input.value='';afterAnswerEdited(input)}
 function afterAnswerEdited(input){input.closest('.blank')?.classList.remove('wrong','correct');lastAutoSignature='';els.message.className='message';els.message.textContent='Keep going. I will check it when every green box is filled.';scheduleAutoCheck()}
+
+function fitBoardToScreen(){
+  if(!puzzle || !els.board) return;
+  const wrap = els.board.closest('.board-wrap');
+  if(!wrap) return;
+  const available = Math.max(260, wrap.clientWidth - 14);
+  const cols = Math.max(1, puzzle.cols || 1);
+  const rows = Math.max(1, puzzle.rows || 1);
+  const isPhone = window.innerWidth <= 620;
+  const maxTile = isPhone ? 42 : 62;
+  const minTile = isPhone ? 28 : 36;
+  let tile = Math.floor((available - 8) / cols);
+  // If the puzzle is tall and the number pad is open, shrink a little so more is visible.
+  if(isPhone && rows >= 10) tile = Math.min(tile, 38);
+  tile = Math.max(minTile, Math.min(maxTile, tile));
+  els.board.style.setProperty('--tile', tile + 'px');
+  wrap.scrollLeft = Math.max(0, (els.board.scrollWidth - wrap.clientWidth) / 2);
+}
+
 function onAnswerInput(event){const input=event.target;input.value=input.value.replace(/[^0-9]/g,'').slice(0,Number(input.maxLength)||2);afterAnswerEdited(input)}
 function scheduleAutoCheck(){if(levelCompleteLocked)return;if(autoCheckTimer)clearTimeout(autoCheckTimer);autoCheckTimer=null;const inputs=Array.from(document.querySelectorAll('.answer-input'));if(!inputs.length)return;const allFilled=inputs.every(i=>i.value.trim()!=='');if(!allFilled)return;const signature=inputs.map(i=>i.value.trim()).join('|');if(signature===lastAutoSignature)return;els.message.className='message good';els.message.textContent='All boxes filled — checking...';autoCheckTimer=setTimeout(()=>{lastAutoSignature=signature;checkAnswers(true)},650)}
 function onAnswerKeydown(event){if(/^[0-9]$/.test(event.key)){event.preventDefault();selectAnswerInput(event.target);applyDigitToActive(event.key);return}if(event.key==='Backspace'||event.key==='Delete'){event.preventDefault();selectAnswerInput(event.target);backspaceActive();return}if(event.key==='Enter'){event.preventDefault();const next=getNextInput(event.target);if(next&&next!==event.target)selectAnswerInput(next);else checkAnswers()}}
@@ -422,7 +554,7 @@ function getWordRules(level){
 }
 function ensureWordStats(kid){kid.wordLevel=kid.wordLevel||1;kid.wordStats=kid.wordStats||{attempts:0,correct:0,wrong:0,stars:0,totalSeconds:0,history:[],bySkill:{},missedWords:{},bestTimes:{},bestMistakes:{}};return kid.wordStats}
 function openWordsTab(){stopTimer();const kid=getWordKid();showScreen('other');if(!kid){els.wordPlayerPill.textContent='Create a player first';els.wordMessage.className='message bad';els.wordMessage.textContent='Go to Math/Profiles and create a player first.';renderLetterKeyboard([]);return}activeKid=kid;state.activeKidId=kid.id;saveState();startWordRound(false)}
-function chooseWord(kid,rules,advance){const bank=WORD_BANKS[rules.bank]||WORD_BANKS.simple;const seed=hashString(`${kid.id}:${kid.wordLevel}:${kid.wordSalt||0}:${advance?'n':'s'}:words-v11`);const rng=mulberry32(seed);return pick(rng,bank)}
+function chooseWord(kid,rules,advance){const bank=WORD_BANKS[rules.bank]||WORD_BANKS.simple;const seed=hashString(`${kid.id}:${kid.wordLevel}:${kid.wordSalt||0}:${advance?'n':'s'}:words-v12`);const rng=mulberry32(seed);return pick(rng,bank)}
 function startWordRound(advanceSalt=false){const kid=getWordKid();if(!kid){openWordsTab();return}activeKid=kid;const stats=ensureWordStats(kid);if(advanceSalt){kid.wordSalt=(kid.wordSalt||0)+1;saveState()}const level=kid.wordLevel||1;const rules=getWordRules(level);let mode=rules.mode;if(mode==='mixed'){const modes=['spell','missing','sentence'];mode=modes[(level+(kid.wordSalt||0))%modes.length]}const word=chooseWord(kid,rules,advanceSalt).toLowerCase();let locked={};if(mode==='missing'){for(let i=0;i<word.length;i++){if(i===0||i===word.length-1||Math.random()<.28)locked[i]=word[i]}if(Object.keys(locked).length>=word.length)delete locked[1]}wordRound={word,mode,rules,locked,entry:Array(word.length).fill(''),started:false};for(const [i,ch] of Object.entries(locked))wordRound.entry[Number(i)]=ch;wordMistakes=0;wordStartedAt=Date.now();renderWordRound();setTimeout(()=>sayWord(),250)}
 function renderWordRound(){const kid=getWordKid();if(!kid||!wordRound)return;els.wordPlayerPill.textContent=`${kid.name} · ⭐ ${kid.totalStars||0}`;els.wordLevelTitle.textContent=`Word Level ${kid.wordLevel||1}`;els.wordSkillPill.textContent=wordRound.rules.label;els.wordGoal.textContent=wordRound.rules.goal;els.wordSentence.classList.toggle('hidden',wordRound.mode!=='sentence');els.wordSentence.textContent=wordRound.mode==='sentence'?(WORD_SENTENCES[wordRound.word]||'Spell the missing word: ____'):'';els.wordDisplay.textContent=wordRound.mode==='sentence'?'Complete the sentence':'🔊 Listen and spell';els.wordBlanks.innerHTML='';wordRound.entry.forEach((ch,i)=>{const slot=document.createElement('div');slot.className='letter-slot'+(wordRound.locked[i]?' locked':'');slot.textContent=ch?ch.toUpperCase():'_';els.wordBlanks.appendChild(slot)});els.wordMessage.className='message';els.wordMessage.textContent='Tap Say word, then use the alphabet keyboard.';renderLetterKeyboard(makeLetterChoices(wordRound.word))}
 function makeLetterChoices(word){const letters='abcdefghijklmnopqrstuvwxyz'.split('');if((getWordKid()?.wordLevel||1)<=10){const needed=[...new Set(word.split(''))];const extra=letters.filter(l=>!needed.includes(l)).slice(0,10-needed.length);return needed.concat(extra).sort()}return letters}
@@ -431,13 +563,13 @@ function sayWord(){if(!wordRound)return;try{window.speechSynthesis.cancel();cons
 function addWordLetter(l){if(!wordRound)return;const idx=wordRound.entry.findIndex((ch,i)=>!wordRound.locked[i]&&!ch);if(idx<0)return;wordRound.entry[idx]=l;renderWordRound();const remaining=wordRound.entry.some((ch,i)=>!wordRound.locked[i]&&!ch);if(!remaining)setTimeout(checkWord,350)}
 function backspaceWord(){if(!wordRound)return;for(let i=wordRound.entry.length-1;i>=0;i--){if(!wordRound.locked[i]&&wordRound.entry[i]){wordRound.entry[i]='';break}}renderWordRound()}
 function clearWordEntry(){if(!wordRound)return;wordRound.entry=wordRound.entry.map((ch,i)=>wordRound.locked[i]?wordRound.word[i]:'');renderWordRound()}
-function checkWord(){const kid=getWordKid();if(!kid||!wordRound)return;const answer=wordRound.entry.join('').toLowerCase();if(answer.length<wordRound.word.length||answer.includes('')){els.wordMessage.className='message bad';els.wordMessage.textContent='Fill all the letters first.';return}const stats=ensureWordStats(kid);stats.attempts++;const seconds=Math.max(1,Math.floor((Date.now()-wordStartedAt)/1000));const skill=wordRound.rules.label;stats.bySkill[skill]=stats.bySkill[skill]||{attempts:0,correct:0,wrong:0};stats.bySkill[skill].attempts++;if(answer!==wordRound.word){wordMistakes++;stats.wrong++;stats.bySkill[skill].wrong++;stats.missedWords[wordRound.word]=(stats.missedWords[wordRound.word]||0)+1;saveState();els.wordMessage.className='message bad';els.wordMessage.textContent='Almost — try again. Tap 🔊 to hear it again.';Array.from(els.wordBlanks.children).forEach((slot,i)=>slot.classList.toggle('wrong',answer[i]!==wordRound.word[i]));return}stats.correct++;stats.bySkill[skill].correct++;stats.totalSeconds+=seconds;let stars=wordMistakes===0?3:wordMistakes===1?2:1;const key=`${skill}:${wordRound.word}`;const oldBest=stats.bestTimes[key];const oldMistakes=stats.bestMistakes[key];let bonus=0,bits=[];if(oldBest&&seconds<oldBest){bonus++;bits.push('🏃 new best time +1 star')}if(oldMistakes!==undefined&&wordMistakes<oldMistakes){bonus++;bits.push('🎯 fewer mistakes +1 star')}stats.bestTimes[key]=oldBest?Math.min(oldBest,seconds):seconds;stats.bestMistakes[key]=oldMistakes===undefined?wordMistakes:Math.min(oldMistakes,wordMistakes);const earned=stars+bonus;kid.totalStars=(kid.totalStars||0)+earned;kid.score=(kid.score||0)+earned*75+Math.max(0,60-seconds)*2;kid.wordLevel=(kid.wordLevel||1)+1;kid.wordSalt=0;stats.stars=(stats.stars||0)+earned;stats.history.push({word:wordRound.word,skill,seconds,mistakes:wordMistakes,stars,bonus,ts:Date.now()});stats.history=stats.history.slice(-100);saveState();launchConfetti();playRewardSound();byId('winTitle').textContent=`Congratulations ${kid.name}!!!`;els.winStars.textContent='⭐'.repeat(Math.min(3,stars))+'☆'.repeat(Math.max(0,3-stars));els.winCopy.textContent=`You spelled “${wordRound.word}” correctly in ${formatTime(seconds)}. Earned ${earned} star${earned===1?'':'s'}!`+(bits.length?' '+bits.join(' · '):'');els.modal.classList.add('show');renderWordRound()}
+function checkWord(){const kid=getWordKid();if(!kid||!wordRound)return;const answer=wordRound.entry.join('').toLowerCase();if(wordRound.entry.some(ch=>!ch)){els.wordMessage.className='message bad';els.wordMessage.textContent='Fill all the letters first.';return}const stats=ensureWordStats(kid);stats.attempts++;const seconds=Math.max(1,Math.floor((Date.now()-wordStartedAt)/1000));const skill=wordRound.rules.label;stats.bySkill[skill]=stats.bySkill[skill]||{attempts:0,correct:0,wrong:0};stats.bySkill[skill].attempts++;if(answer!==wordRound.word){wordMistakes++;stats.wrong++;stats.bySkill[skill].wrong++;stats.missedWords[wordRound.word]=(stats.missedWords[wordRound.word]||0)+1;saveState();els.wordMessage.className='message bad';els.wordMessage.textContent='Almost — try again. Tap 🔊 to hear it again.';Array.from(els.wordBlanks.children).forEach((slot,i)=>slot.classList.toggle('wrong',answer[i]!==wordRound.word[i]));return}stats.correct++;stats.bySkill[skill].correct++;stats.totalSeconds+=seconds;let stars=wordMistakes===0?3:wordMistakes===1?2:1;const key=`${skill}:${wordRound.word}`;const oldBest=stats.bestTimes[key];const oldMistakes=stats.bestMistakes[key];let bonus=0,bits=[];if(oldBest&&seconds<oldBest){bonus++;bits.push('🏃 new best time +1 star')}if(oldMistakes!==undefined&&wordMistakes<oldMistakes){bonus++;bits.push('🎯 fewer mistakes +1 star')}stats.bestTimes[key]=oldBest?Math.min(oldBest,seconds):seconds;stats.bestMistakes[key]=oldMistakes===undefined?wordMistakes:Math.min(oldMistakes,wordMistakes);const earned=stars+bonus;kid.totalStars=(kid.totalStars||0)+earned;kid.score=(kid.score||0)+earned*75+Math.max(0,60-seconds)*2;kid.wordLevel=(kid.wordLevel||1)+1;kid.wordSalt=0;stats.stars=(stats.stars||0)+earned;stats.history.push({word:wordRound.word,skill,seconds,mistakes:wordMistakes,stars,bonus,ts:Date.now()});stats.history=stats.history.slice(-100);saveState();launchConfetti();playRewardSound();byId('winTitle').textContent=`Congratulations ${kid.name}!!!`;els.winStars.textContent='⭐'.repeat(Math.min(3,stars))+'☆'.repeat(Math.max(0,3-stars));els.winCopy.textContent=`You spelled “${wordRound.word}” correctly in ${formatTime(seconds)}. Earned ${earned} star${earned===1?'':'s'}!`+(bits.length?' '+bits.join(' · '):'');els.modal.classList.add('show');renderWordRound()}
 
 function openMathTab(){const kid=getKid(state.activeKidId);if(kid)startGame(kid.id);else{renderProfiles();showScreen('profiles')}}
 
 els.profileForm.addEventListener('submit',e=>{e.preventDefault();const name=els.kidNameInput.value.trim();if(!name)return;const kid=kidTemplate(name);state.kids.push(kid);state.activeKidId=kid.id;els.kidNameInput.value='';saveState();renderProfiles();startGame(kid.id)});
 els.backBtn.addEventListener('click',()=>{stopTimer();renderProfiles();showScreen('profiles')});els.evalBackBtn.addEventListener('click',()=>{renderProfiles();showScreen('profiles')});els.evalPlayBtn.addEventListener('click',()=>{if(activeKid)startGame(activeKid.id)});els.evalFromGameBtn.addEventListener('click',()=>showEvaluation(activeKid?.id));els.checkBtn.addEventListener('click',checkAnswers);els.clearBtn.addEventListener('click',clearAnswers);els.newPuzzleBtn.addEventListener('click',()=>newRound(true));els.resetLevelBtn.addEventListener('click',resetActiveKid);els.clearMistakesBtn.addEventListener('click',clearEvaluationData);
-els.nextBtn.addEventListener('click',()=>{els.modal.classList.remove('show'); if(els.otherScreen.classList.contains('active'))startWordRound(true); else newRound()});els.modalProfilesBtn.addEventListener('click',()=>{els.modal.classList.remove('show');stopTimer();renderProfiles();showScreen('profiles')});els.modalEvalBtn.addEventListener('click',()=>{els.modal.classList.remove('show');showEvaluation(activeKid?.id)});window.addEventListener('beforeunload',stopTimer);
+els.nextBtn.addEventListener('click',()=>{els.modal.classList.remove('show'); if(els.otherScreen.classList.contains('active'))startWordRound(true); else newRound()});els.modalProfilesBtn.addEventListener('click',()=>{els.modal.classList.remove('show');stopTimer();renderProfiles();showScreen('profiles')});els.modalEvalBtn.addEventListener('click',()=>{els.modal.classList.remove('show');showEvaluation(activeKid?.id)});window.addEventListener('beforeunload',stopTimer);window.addEventListener('resize',()=>setTimeout(fitBoardToScreen,120));window.addEventListener('orientationchange',()=>setTimeout(fitBoardToScreen,300));
 
 els.numberPad.addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;const digit=btn.dataset.num;const action=btn.dataset.action;if(digit!==undefined){applyDigitToActive(digit);return}if(action==='back')backspaceActive();else if(action==='clear')clearActiveInput();else if(action==='next'){const next=getNextInput(activeInput);if(next)selectAnswerInput(next)}else if(action==='check')checkAnswers();else if(action==='hide'){document.querySelector('.cell.blank.selected')?.classList.remove('selected');activeInput=null}});
 els.letterKeyboard.addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;if(btn.dataset.letter)addWordLetter(btn.dataset.letter);else if(btn.dataset.action==='back')backspaceWord();else if(btn.dataset.action==='clear')clearWordEntry()});

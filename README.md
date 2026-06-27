@@ -1,18 +1,13 @@
-# Random Games Kids POC v11
+# Random Games Kids POC v14
 
-Static GitHub Pages app for personal kids games.
+Static GitHub Pages app. v14 fixes mobile scrolling, compacts the bottom number pad, and improves Words auto-check.
 
-## Files to upload to GitHub repo root
+Upload these files to the repository root:
 
-- `index.html`
-- `site.webmanifest`
-- `apple-touch-icon.png`
-- `icon-192.png`
-- `icon-512.png`
+- index.html
+- site.webmanifest
+- apple-touch-icon.png
+- icon-192.png
+- icon-512.png
 
-## Notes
-
-- v11 adds prominent Safari-friendly tabs.
-- v11 adds home-screen app icons.
-- Open with `?v=11` once after upload to bypass Safari/GitHub Pages cache:
-  `https://fll2024.github.io/random-games/?v=11`
+Test with `https://fll2024.github.io/random-games/?v=14`.
